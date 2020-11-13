@@ -25,11 +25,11 @@
 | name         | string     | null: false                    |
 | image        |            |                                |
 | explanation  | test       | null: false                    |
-| category     | string     | null: false                    |
-| condition    | string     | null: false                    |
-| delivery_fee | string     | null: false                    |
-| area         | string     | null: false                    |
-| days         | string     | null: false                    |
+| category     | integer    | null: false                    |
+| condition    | integer    | null: false                    |
+| delivery_fee | integer    | null: false                    |
+| area         | integer    | null: false                    |
+| days         | integer    | null: false                    |
 | user         | references | null: false, foreign_key: true |
 
 ### Association
