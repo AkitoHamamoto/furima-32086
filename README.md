@@ -28,7 +28,7 @@
 | category_id     | integer    | null: false                    |
 | condition_id    | integer    | null: false                    |
 | delivery_fee_id | integer    | null: false                    |
-| area_id         | integer    | null: false                    |
+| prefecture_id   | integer    | null: false                    |
 | days_id         | integer    | null: false                    |
 | user            | references | null: false, foreign_key: true |
 
@@ -37,7 +37,7 @@
 - belongs_to :user
 - has_one :purchase
 
-## user_info テーブル
+## addresses テーブル
 
 | Column         | Type       | Options                        |
 | -------------- |----------- | ------------------------------ |
@@ -53,7 +53,7 @@
 
 - belongs_to :purchase
 
-## purchase テーブル
+## purchases テーブル
 
 | Column | Type       | Options                        |
 | ------ | ---------- | ------------------------------ |
@@ -64,4 +64,4 @@
 
 - belongs_to :user
 - belongs_to :item
-- has_one :user_info
+- has_one :address
