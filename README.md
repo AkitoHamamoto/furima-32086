@@ -24,7 +24,7 @@
 | --------------- | ---------- | ------------------------------ |
 | name            | string     | null: false                    |
 | price           | integer    | null: false                    |
-| explanation     | test       | null: false                    |
+| explanation     | text       | null: false                    |
 | category_id     | integer    | null: false                    |
 | condition_id    | integer    | null: false                    |
 | delivery_fee_id | integer    | null: false                    |
@@ -41,16 +41,16 @@
 
 | Column         | Type       | Options                        |
 | -------------- |----------- | ------------------------------ |
-| postal_code_id | integer    | null: false                    |
+| postal_code    | string     | null: false                    |
 | prefecture_id  | integer    | null: false                    |
 | city           | string     | null: false                    |
 | address_line   | string     | null: false                    |
 | building       | string     |                                |
 | phone_number   | string     | null: false                    |
+| purchase       | references | null: false, foreign_key: true |
 
 ### Association
 
-- belongs_to :user
 - has_many :purchases
 
 ## purchase テーブル
