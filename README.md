@@ -16,7 +16,6 @@
 ### Association
 
 - has_many  :items
-- has_one   :user_info
 - has_many  :purchases
 
 ## items テーブル
@@ -48,14 +47,11 @@
 | address_line   | string     | null: false                    |
 | building       | string     |                                |
 | phone_number   | string     | null: false                    |
-| user           | references | null: false, foreign_key: true |
-| item           | references | null: false, foreign_key: true |
 
 ### Association
 
 - belongs_to :user
 - has_many :purchases
-- belongs_to :item
 
 ## purchase テーブル
 
