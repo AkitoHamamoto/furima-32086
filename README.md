@@ -2,29 +2,29 @@
 
 ## users テーブル
 
-| Column          | Type   | Options     |
-| --------------- |------- | ----------- |
-| nickname        | string | null: false |
-| email           | string | null: false |
-| password        | string | null: false |
-| first_name      | string | null: false |
-| last_name       | string | null: false |
-| kana_first_name | string | null: false |
-| kana_last_name  | string | null: false |
-| birthday        | date   | null: false |
+| Column             | Type   | Options     |
+| ------------------ |------- | ----------- |
+| nickname           | string | null: false |
+| email              | string | null: false |
+| encrypted_password | string | null: false |
+| first_name         | string | null: false |
+| last_name          | string | null: false |
+| kana_first_name    | string | null: false |
+| kana_last_name     | string | null: false |
+| birthday           | date   | null: false |
 
 ### Association
 
 - has_many  :items
 - has_one   :user_info
-- has_many  :purchases, through: :uer_info
+- has_many  :purchases
 
 ## items テーブル
 
 | Column          | Type       | Options                        |
 | --------------- | ---------- | ------------------------------ |
 | name            | string     | null: false                    |
-| image           |            |                                |
+| price           | integer    | null: false                    |
 | explanation     | test       | null: false                    |
 | category_id     | integer    | null: false                    |
 | condition_id    | integer    | null: false                    |
@@ -36,8 +36,7 @@
 ### Association
 
 - belongs_to :user
-- belongs_to :purchase
-- has_one :user_info, through: :purchase
+- has_one :purchase
 
 ## user_info テーブル
 
@@ -55,8 +54,8 @@
 ### Association
 
 - belongs_to :user
-- has_one :purchase
-- belongs_to :item, through: :purchase
+- has_many :purchases
+- belongs_to :item
 
 ## purchase テーブル
 
@@ -67,6 +66,6 @@
 
 ### Association
 
-- belongs_to :user, through: :user_info
-- has_one :item
+- belongs_to :user
+- belongs_to :item
 - belongs_to :user_info
