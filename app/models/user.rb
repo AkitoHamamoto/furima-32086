@@ -8,10 +8,14 @@ class User < ApplicationRecord
   has_many  :purchases
 
   validates :nickname,        presence: true
-  validates :first_name,      presence: true
-  validates :last_name,       presence: true
-  validates :kana_first_name, presence: true
-  validates :kana_last_name,  presence: true
+  VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
+  validates :email,           presence: true, uniqueness: true, format: { with: VALID_EMAIL_REGEX }
+  PASSWORD_REGEX = /\A(?=.*?[a-z])(?=.*?[\d])[a-z\d]+\z/i.freeze
+  validates_format_of :password,presence: true, length: { minimum: 6 }, with: PASSWORD_REGEX, message: 'には英字と数字の両方を含めて設定してください' 
+  validates :first_name,      presence: true, format: {with: /\A[ぁ-んァ-ン一-龥]+\z/}
+  validates :last_name,       presence: true, format: {with: /\A[ぁ-んァ-ン一-龥]+\z/}
+  validates :kana_first_name, presence: true, format: {with: /\A[ァ-ヶー－]+\z/}
+  validates :kana_last_name,  presence: true, format: {with: /\A[ァ-ヶー－]+\z/}
   validates :birth_date,      presence: true
 
 
