@@ -11,20 +11,20 @@ class Item < ApplicationRecord
 
   with_options presence: true do
     validates :name
-    PRICE_REGEX = /\A[0-9]+\z/
+    PRICE_REGEX = /\A[0-9]+\z/.freeze
     validates :price,
               numericality: {
-                only_integer: true, 
+                only_integer: true,
                 greater_than_or_equal_to: 300,
-                less_than_or_equal_to: 9999999 
+                less_than_or_equal_to: 9_999_999
               },
-              format: { with: PRICE_REGEX, message: '販売価格は半角数字のみ保存可能です'}
+              format: { with: PRICE_REGEX, message: '販売価格は半角数字のみ保存可能です' }
     validates :explanation
     validates :image
   end
-    validates :category_id,     numericality: { other_than: 1 }
-    validates :condition_id,    numericality: { other_than: 1 }
-    validates :delivery_fee_id, numericality: { other_than: 1 }
-    validates :prefecture_id,   numericality: { other_than: 1 }
-    validates :day_id,          numericality: { other_than: 1 }
+  validates :category_id,     numericality: { other_than: 1 }
+  validates :condition_id,    numericality: { other_than: 1 }
+  validates :delivery_fee_id, numericality: { other_than: 1 }
+  validates :prefecture_id,   numericality: { other_than: 1 }
+  validates :day_id,          numericality: { other_than: 1 }
 end
