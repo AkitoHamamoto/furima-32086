@@ -37,10 +37,22 @@ RSpec.describe Item, type: :model do
         expect(@item.errors.full_messages).to include('Category is not a number')
       end
 
+      it 'カテゴリーの情報のidが1だと出品できない' do
+        @item.category_id = 1
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Category must be other than 1")
+      end
+
       it '商品状態の情報がないと出品できない' do
         @item.condition_id = ''
         @item.valid?
         expect(@item.errors.full_messages).to include('Condition is not a number')
+      end
+
+      it '商品状態の情報のidが1だと出品できない' do
+        @item.condition_id = 1
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Condition must be other than 1")
       end
 
       it '配送料の負担についての情報がないと出品できない' do
@@ -48,11 +60,23 @@ RSpec.describe Item, type: :model do
         @item.valid?
         expect(@item.errors.full_messages).to include('Delivery fee is not a number')
       end
+      
+      it '配送料の負担についての情報のidが1だと出品できない' do
+        @item.delivery_fee_id = 1
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Delivery fee must be other than 1")
+      end
 
       it '発送元の地域についての情報がないと出品できない' do
         @item.prefecture_id = ''
         @item.valid?
         expect(@item.errors.full_messages).to include('Prefecture is not a number')
+      end
+      
+      it '発送元の地域についての情報のidが1だと出品できない' do
+        @item.prefecture_id = 1
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Prefecture must be other than 1")
       end
 
       it '価格についての情報がないと出品できない' do
@@ -83,6 +107,12 @@ RSpec.describe Item, type: :model do
         @item.day_id = ''
         @item.valid?
         expect(@item.errors.full_messages).to include('Day is not a number')
+      end
+
+      it '発送までの日数ついての情報のidが1だと出品できない' do
+        @item.day_id = 1
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Day must be other than 1")
       end
     end
   end
