@@ -13,4 +13,4 @@ function calc () {
  
 }
 
-window.addEventListener("load", calc);
+setInterval(calc, 1000);
