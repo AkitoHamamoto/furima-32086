@@ -1,10 +1,11 @@
 class ItemsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
-  before_action :move_to_index, only: :edit
   before_action :item_find, only: [:show, :edit, :update, :destroy]
+  before_action :move_to_index, only: :edit
+  before_action :sold_out, only: :edit
 
   def index
-    @items = Item.includes(:user).order("id DESC")
+    @items = Item.includes(:user).order('id DESC')
   end
 
   def new
@@ -50,13 +51,14 @@ class ItemsController < ApplicationController
   end
 
   def move_to_index
-    item = Item.find(params[:id])
-    unless current_user.id == item.user_id
-      redirect_to action: :index
-    end
+    redirect_to action: :index unless current_user.id == @item.user_id
   end
 
   def item_find
-    @item = Item.find(params[:id]) 
+    @item = Item.find(params[:id])
+  end
+
+  def sold_out
+    redirect_to action: :index if @item.order.present?
   end
 end
