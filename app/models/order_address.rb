@@ -2,7 +2,7 @@ class OrderAddress
   include ActiveModel::Model
   attr_accessor :token, :postal_code, :prefecture_id, :city, :address_line, :building, :phone_number, :item_id, :order_id, :user_id
 
-  validates :token, presence: true
+  validates :token, presence: {message: 'クレジットカードの情報が正しく入力されていません'}
 
   with_options presence: true do
     POSTAL_REGEX = /\A\d{3}-\d{4}\z/.freeze
