@@ -63,6 +63,11 @@ RSpec.describe OrderAddress, type: :model do
         @order_address.valid?
         expect(@order_address.errors.full_messages).to include('Phone number 携帯番号には(-)なしで11桁の数字を入力してください')
       end
+      it '電話番号は数字のみ（ハイフンが含まれていると）購入できない' do
+        @order_address.phone_number = '090-1234-5678'
+        @order_address.valid?
+        expect(@order_address.errors.full_messages).to include('Phone number 携帯番号には(-)なしで11桁の数字を入力してください')
+      end
     end
   end
 end

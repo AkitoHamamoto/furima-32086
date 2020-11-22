@@ -1,10 +1,10 @@
 class OrdersController < ApplicationController
   before_action :authenticate_user!
+  before_action :item_find
   before_action :sold_out, only: :index
   before_action :move_to_item_index, only: :index
 
   def index
-    @item = Item.find(params[:item_id])
     @order_address = OrderAddress.new
   end
 
@@ -13,7 +13,6 @@ class OrdersController < ApplicationController
   end
 
   def create
-    @item = Item.find(params[:item_id])
     @order_address = OrderAddress.new(order_address_params)
     if @order_address.valid?
       @order_address.save
@@ -39,16 +38,18 @@ class OrdersController < ApplicationController
     params.require(:order_address).permit(:postal_code, :prefecture_id, :city, :address_line, :building, :phone_number).merge(token: params[:token], item_id: params[:item_id], user_id: current_user.id)
   end
 
+  def item_find
+    @item = Item.find(params[:item_id])
+  end
+
   def sold_out
-    item = Item.find(params[:item_id])
-    if item.order.present?
+    if @item.order.present?
       redirect_to root_path 
     end
   end
 
   def move_to_item_index
-    item = Item.find(params[:item_id])
-    if current_user.id == item.user_id
+    if current_user.id == @item.user_id
       redirect_to root_path
     end 
   end
