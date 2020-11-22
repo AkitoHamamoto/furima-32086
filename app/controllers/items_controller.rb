@@ -5,7 +5,7 @@ class ItemsController < ApplicationController
   before_action :sold_out, only: :edit
 
   def index
-    @items = Item.includes(:user).order("id DESC")
+    @items = Item.includes(:user).order('id DESC')
   end
 
   def new
@@ -52,20 +52,15 @@ class ItemsController < ApplicationController
 
   def move_to_index
     item = Item.find(params[:id])
-    unless current_user.id == item.user_id
-      redirect_to action: :index
-    end
+    redirect_to action: :index unless current_user.id == item.user_id
   end
 
   def item_find
-    @item = Item.find(params[:id]) 
+    @item = Item.find(params[:id])
   end
 
   def sold_out
     item = Item.find(params[:id])
-    if item.order.present?
-      redirect_to action: :index
-    end
+    redirect_to action: :index if item.order.present?
   end
-
 end

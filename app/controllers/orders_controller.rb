@@ -17,7 +17,7 @@ class OrdersController < ApplicationController
     if @order_address.valid?
       @order_address.save
       pay_item
-      return redirect_to root_path
+      redirect_to root_path
     else
       render action: :index
     end
@@ -26,7 +26,7 @@ class OrdersController < ApplicationController
   private
 
   def pay_item
-    Payjp.api_key = ENV["PAYJP_SECRET_KEY"]
+    Payjp.api_key = ENV['PAYJP_SECRET_KEY']
     Payjp::Charge.create(
       amount: @item.price,
       card: order_address_params[:token],
@@ -40,9 +40,6 @@ class OrdersController < ApplicationController
 
   def sold_out
     item = Item.find(params[:item_id])
-    if item.order.present?
-      redirect_to root_path
-    end
+    redirect_to root_path if item.order.present?
   end
-
 end
